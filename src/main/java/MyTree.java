@@ -1,11 +1,16 @@
+import java.util.ArrayList;
 
 public class MyTree {
     private Node root = null;
-    
+    public int size = 0;
+    public int[] arrayOfValues;
+    public int i = 0;
+
     public void add(int value) {
         Node newNode = new Node(value);
         if (this.root == null) {
             this.root = newNode;
+            size++;
             return;
         }
         Node cur = this.root;
@@ -13,6 +18,7 @@ public class MyTree {
             if (cur.value > value) {
                 if (cur.left == null) {
                     cur.left = newNode;
+                    size++;
                     break;
                 } else {
                     cur = cur.left;
@@ -20,6 +26,7 @@ public class MyTree {
             } else if (cur.value <= value) {
                 if (cur.right == null) {
                     cur.right = newNode;
+                    size++;
                     break;
                 } else {
                     cur = cur.right;
@@ -27,7 +34,11 @@ public class MyTree {
             }
         }
     }
-    
+
+    public int size() {
+        return size;
+    }
+
     /*
     public void addRec(int value) {
         if (this.root == null) {
@@ -114,22 +125,81 @@ public class MyTree {
         return cur.value;
     }
 
-    public boolean contains(int value){
+    public boolean contains(int value) {
         Node cur = this.root;
         Node previous = null;
-        if(cur.value == value){
+        if (cur.value == value) {
             return true;
         }
         while (cur.value != value) {
             previous = cur;
             if (cur.value > value && cur.left != null) {
                 cur = cur.left;
-            } else if (cur.value < value && cur.right != null){
+            } else if (cur.value < value && cur.right != null) {
                 cur = cur.right;
-            }else{
+            } else {
                 return false;
             }
         }
         return previous.left == cur || previous.right == cur;
     }
+
+    private void dfsPreOrder(Node cur) {
+        if (cur == null) {
+            return;
+        }
+        if(i == 0){
+            this.arrayOfValues = new int[size];
+        }
+        arrayOfValues[i] = cur.value;
+        i++;
+        dfsPreOrder(cur.left);
+        dfsPreOrder(cur.right);
     }
+
+    public void printDfsPreOrder() {
+        dfsPreOrder(this.root);
+    }
+
+    private void dfcInOrder(Node cur) {
+        if (cur == null) {
+            return;
+        }
+        dfcInOrder(cur.left);
+        if(i == 0){
+            this.arrayOfValues = new int[size];
+        }
+        arrayOfValues[i] = cur.value;
+        i++;
+        dfcInOrder(cur.right);
+    }
+
+    public void printDfsInOrder() {
+        dfcInOrder(this.root);
+    }
+
+    private void dfcPostOrder(Node cur) {
+        if (cur == null) {
+            return;
+        }
+        dfcPostOrder(cur.left);
+        dfcPostOrder(cur.right);
+        if(i == 0){
+            this.arrayOfValues = new int[size];
+        }
+        arrayOfValues[i] = cur.value;
+        i++;
+    }
+
+    public void printDfsPostOrder() {
+        dfcPostOrder(this.root);
+    }
+}
+
+
+
+
+
+
+
+

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="MyTreeTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2021-11-11T08:56:53" hostname="LAPTOP-7QK5ELVE" time="0.103">
+<testsuite name="MyTreeTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2021-11-12T23:16:43" hostname="LAPTOP-7QK5ELVE" time="0.096">
   <properties/>
-  <testcase name="deleteByValueInTreeTest()" classname="MyTreeTests" time="0.103"/>
+  <testcase name="shouldReturnFalseForContainsInBinaryTreeTest()" classname="MyTreeTests" time="0.096"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
