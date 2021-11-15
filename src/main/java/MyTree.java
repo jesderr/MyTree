@@ -1,16 +1,13 @@
 import java.util.ArrayList;
+import java.util.List;
 
 public class MyTree {
     private Node root = null;
-    public int size = 0;
-    public int[] arrayOfValues;
-    public int i = 0;
 
     public void add(int value) {
         Node newNode = new Node(value);
         if (this.root == null) {
             this.root = newNode;
-            size++;
             return;
         }
         Node cur = this.root;
@@ -18,7 +15,6 @@ public class MyTree {
             if (cur.value > value) {
                 if (cur.left == null) {
                     cur.left = newNode;
-                    size++;
                     break;
                 } else {
                     cur = cur.left;
@@ -26,17 +22,12 @@ public class MyTree {
             } else if (cur.value <= value) {
                 if (cur.right == null) {
                     cur.right = newNode;
-                    size++;
                     break;
                 } else {
                     cur = cur.right;
                 }
             }
         }
-    }
-
-    public int size() {
-        return size;
     }
 
     /*
@@ -64,7 +55,6 @@ public class MyTree {
         }
     }
      */
-
 
     public void delete(int value) {
         Node previousNodeForDelete = this.searchPrevious(value);
@@ -144,55 +134,52 @@ public class MyTree {
         return previous.left == cur || previous.right == cur;
     }
 
-    private void dfsPreOrder(Node cur) {
+    private ArrayList<Integer> dfsPreOrder(Node cur,
+                                           ArrayList<Integer> arrayOfValues) {
         if (cur == null) {
-            return;
+            return null;
         }
-        if(i == 0){
-            this.arrayOfValues = new int[size];
-        }
-        arrayOfValues[i] = cur.value;
-        i++;
-        dfsPreOrder(cur.left);
-        dfsPreOrder(cur.right);
+        arrayOfValues.add(cur.value);
+        dfsPreOrder(cur.left, arrayOfValues);
+        dfsPreOrder(cur.right, arrayOfValues);
+        return arrayOfValues;
     }
 
-    public void printDfsPreOrder() {
-        dfsPreOrder(this.root);
+    public ArrayList<Integer> getPreOrderTreeArray() {
+        ArrayList<Integer> arrayOfValues = new ArrayList<>();
+        return dfsPreOrder(this.root, arrayOfValues);
     }
 
-    private void dfcInOrder(Node cur) {
+    private ArrayList<Integer> dfcInOrder(Node cur,
+                                          ArrayList<Integer> arrayOfValues) {
         if (cur == null) {
-            return;
+            return null;
         }
-        dfcInOrder(cur.left);
-        if(i == 0){
-            this.arrayOfValues = new int[size];
-        }
-        arrayOfValues[i] = cur.value;
-        i++;
-        dfcInOrder(cur.right);
+        dfcInOrder(cur.left, arrayOfValues);
+        arrayOfValues.add(cur.value);
+        dfcInOrder(cur.right, arrayOfValues);
+        return arrayOfValues;
     }
 
-    public void printDfsInOrder() {
-        dfcInOrder(this.root);
+    public ArrayList<Integer> getInOrderTreeArray() {
+        ArrayList<Integer> arrayOfValues = new ArrayList<>();
+        return dfcInOrder(this.root, arrayOfValues);
     }
 
-    private void dfcPostOrder(Node cur) {
+    private ArrayList<Integer> dfcPostOrder(Node cur,
+                                            ArrayList<Integer> arrayOfValues) {
         if (cur == null) {
-            return;
+            return null;
         }
-        dfcPostOrder(cur.left);
-        dfcPostOrder(cur.right);
-        if(i == 0){
-            this.arrayOfValues = new int[size];
-        }
-        arrayOfValues[i] = cur.value;
-        i++;
+        dfcPostOrder(cur.left, arrayOfValues);
+        dfcPostOrder(cur.right, arrayOfValues);
+        arrayOfValues.add(cur.value);
+        return arrayOfValues;
     }
 
-    public void printDfsPostOrder() {
-        dfcPostOrder(this.root);
+    public ArrayList<Integer> getPostOrderTreeArray() {
+        ArrayList<Integer> arrayOfValues = new ArrayList<>();
+        return dfcPostOrder(this.root, arrayOfValues);
     }
 }
 

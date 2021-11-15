@@ -1,8 +1,5 @@
 import com.sun.source.tree.Tree;
 
-import java.util.Arrays;
-
-
 public class Main {
     public static void main(String[] args) {
         MyTree myTree = new MyTree();
@@ -16,8 +13,6 @@ public class Main {
         myTree.add(49);
         myTree.add(94);
 
-        myTree.printDfsPostOrder();
-
-        System.out.println(Arrays.toString(myTree.arrayOfValues));
+        System.out.println(myTree.getPostOrderTreeArray());
     }
 }
