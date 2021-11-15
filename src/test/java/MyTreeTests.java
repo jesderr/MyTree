@@ -1,11 +1,13 @@
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
 public class MyTreeTests {
     private MyTree tree;
 
     @Test
-    public void addByValueInBinaryTreeTest(){
+    public void addByValueInBinaryTreeTest() {
         this.tree = new MyTree();
 
         this.tree.add(12);
@@ -14,7 +16,7 @@ public class MyTreeTests {
 
         int expected = 12;
 
-        Assertions.assertEquals(expected,actual);
+        Assertions.assertEquals(expected, actual);
 
         /*
         boolean contain = this.tree.contains(12);
@@ -40,7 +42,7 @@ public class MyTreeTests {
     }
 
     @Test
-    public void shouldReturnTrueForContainsInBinaryTreeTest(){
+    public void shouldReturnTrueForContainsInBinaryTreeTest() {
         this.tree = new MyTree();
 
         this.tree.add(48);
@@ -53,13 +55,13 @@ public class MyTreeTests {
         this.tree.add(94);
         this.tree.add(49);
 
-        boolean isContain = this.tree.contains(94);
+        boolean isContain = this.tree.contains(3);
 
         Assertions.assertTrue(isContain);
     }
 
     @Test
-    public void shouldReturnFalseForContainsInBinaryTreeTest(){
+    public void shouldReturnFalseForContainsInBinaryTreeTest() {
         this.tree = new MyTree();
 
         this.tree.add(48);
@@ -69,13 +71,13 @@ public class MyTreeTests {
         this.tree.add(65);
         this.tree.add(49);
 
-        boolean isContain = this.tree.contains(12);
+        boolean isContain = this.tree.contains(555);
 
         Assertions.assertFalse(isContain);
     }
 
     @Test
-    public void checkingOnMethodDFCPreOrderInBinaryTreeTest(){
+    public void checkingForCorrectOnMethodDFCPreOrderInBinaryTreeTest() {
         this.tree = new MyTree();
 
         this.tree.add(48);
@@ -83,15 +85,19 @@ public class MyTreeTests {
         this.tree.add(3);
         this.tree.add(75);
 
-        this.tree.printDfsPreOrder();
+        ArrayList<Integer> expected = new ArrayList<>();
+        expected.add(48);
+        expected.add(27);
+        expected.add(3);
+        expected.add(75);
 
-        int[] expected = new int[] {48,27,3,75};
+        Assertions.assertIterableEquals(expected, this.tree.getPreOrderTreeArray());
 
-        Assertions.assertArrayEquals(this.tree.arrayOfValues,expected);
+
     }
 
     @Test
-    public void checkingOnMethodDFCInOrderInBinaryTreeTest(){
+    public void checkingForIncorrectOnMethodDFCPreOrderInBinaryTreeTest(){
         this.tree = new MyTree();
 
         this.tree.add(48);
@@ -99,15 +105,17 @@ public class MyTreeTests {
         this.tree.add(3);
         this.tree.add(75);
 
-        this.tree.printDfsInOrder();
+        ArrayList<Integer> expected = new ArrayList<>();
+        expected.add(48);
+        expected.add(100);
+        expected.add(100);
+        expected.add(75);
 
-        int[] expected = new int[] {3,27,48,75};
-
-        Assertions.assertArrayEquals(this.tree.arrayOfValues,expected);
+        Assertions.assertNotEquals(expected,this.tree.getPreOrderTreeArray());
     }
 
     @Test
-    public void checkingOnMethodDFCPostOrderInBinaryTreeTest(){
+    public void checkingForCorrectOnMethodDFCInOrderInBinaryTreeTest() {
         this.tree = new MyTree();
 
         this.tree.add(48);
@@ -115,12 +123,68 @@ public class MyTreeTests {
         this.tree.add(3);
         this.tree.add(75);
 
-        this.tree.printDfsPostOrder();
+        ArrayList<Integer> expected = new ArrayList<>();
 
-        int[] expected = new int[] {3,27,75,48};
+        expected.add(3);
+        expected.add(27);
+        expected.add(48);
+        expected.add(75);
 
-        Assertions.assertArrayEquals(this.tree.arrayOfValues,expected);
+        Assertions.assertIterableEquals(expected, this.tree.getInOrderTreeArray());
     }
 
+    @Test
+    public void checkingForIncorrectOnMethodDFCInOrderInBinaryTreeTest() {
+        this.tree = new MyTree();
 
+        this.tree.add(48);
+        this.tree.add(27);
+        this.tree.add(3);
+        this.tree.add(75);
+
+        ArrayList<Integer> expected = new ArrayList<>();
+        expected.add(48);
+        expected.add(100);
+        expected.add(100);
+        expected.add(75);
+
+        Assertions.assertNotEquals(expected, this.tree.getInOrderTreeArray());
+    }
+
+    @Test
+    public void checkingForCorrectOnMethodDFCPostOrderInBinaryTreeTest() {
+        this.tree = new MyTree();
+
+        this.tree.add(48);
+        this.tree.add(27);
+        this.tree.add(3);
+        this.tree.add(75);
+
+        ArrayList<Integer> expected = new ArrayList<>();
+
+        expected.add(3);
+        expected.add(27);
+        expected.add(75);
+        expected.add(48);
+
+        Assertions.assertIterableEquals(expected, this.tree.getPostOrderTreeArray());
+    }
+
+    @Test
+    public void checkingForIncorrectOnMethodDFCPostOrderInBinaryTreeTest() {
+        this.tree = new MyTree();
+
+        this.tree.add(48);
+        this.tree.add(27);
+        this.tree.add(3);
+        this.tree.add(75);
+
+        ArrayList<Integer> expected = new ArrayList<>();
+        expected.add(48);
+        expected.add(100);
+        expected.add(100);
+        expected.add(999);
+
+        Assertions.assertNotEquals(expected, this.tree.getPostOrderTreeArray());
+    }
 }
